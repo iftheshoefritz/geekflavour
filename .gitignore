@@ -38,3 +38,5 @@ yarn-debug.log*
 .ruby-version
 .solargraph.yml
 .env
+
+/config/credentials/development.key
