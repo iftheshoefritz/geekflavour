@@ -1,4 +1,8 @@
 class WelcomeController < ApplicationController
+  before_action do
+    @token = request.session.id
+  end
+
   def index
     TestJob.set(wait: 5.seconds).perform_later
   end
@@ -8,7 +12,8 @@ class WelcomeController < ApplicationController
   end
 
   def callback
-    LanguageJob.perform_later(params[:code])
+    @sesh = request.session.id # TODO: remove
+    LanguageJob.perform_later(params[:code], @token.to_s)
   end
 
   def client_id
