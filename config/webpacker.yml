@@ -90,8 +90,7 @@ production:
   compile: false
 
   # Extract and emit a css file
-  # TODO: this should be true?
-  extract_css: false
+  extract_css: true
 
   # Cache manifest.json for performance
   cache_manifest: true
