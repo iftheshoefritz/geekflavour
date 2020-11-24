@@ -1,12 +1,16 @@
-<h2>Hello World</h2>
-<p>
-  The time is now: <%= Time.now %>
-</p>
+<div class="flex container justify-center">
+  <div class="max-w-xs rounded overflow-hidden shadow-lg my-2">
+    <img class="w-full" src="Octocat.png" alt="Github logo">
+    <div class="px-6 py-4">
+      <div class="font-bold text-xl mb-2">What's your geek flavour?</div>
+      <p class="text-grey-darker text-base">
+        Let's work out your geek flavour: what is your favourite language? This app will find the most popular language amongst your public projects on github.
+      </p>
+      <p class="underline"><a href="https://github.com/login/oauth/authorize?scope=user:email%20public_repo:read&client_id=<%= @client_id %>">Click here</a> to begin!</a></p>
+    </div>
+    <div class="px-6 py-4">
+      <span class="inline-block bg-grey-lighter rounded-full px-3 py-1 text-sm font-semibold text-grey-darker mr-2">#geekflavour</span>
+    </div>
+  </div>
 
-<div id="content">what will happen</div>
-
-<%= @sesh %>
-
-<div class="bg-red-500 w-3/4 mx-auto p-4">
-  <p class="text-white text-2xl">Test test test</p>
 </div>

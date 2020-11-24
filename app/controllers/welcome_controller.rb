@@ -4,10 +4,6 @@ class WelcomeController < ApplicationController
   end
 
   def index
-    TestJob.set(wait: 5.seconds).perform_later
-  end
-
-  def github2
     @client_id = client_id
   end
 
