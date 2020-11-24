@@ -23,7 +23,8 @@ class LanguageJob < ApplicationJob
     repos = client.user[:repos_url]
     project_languages_urls = client.get(repos).map(&:languages_url)
     top_languages_per_repo = project_languages_urls.each_with_object([]) do |url, memo|
-      status_update "fetching #{url}"
+      project = url.split("/").last(2).join("/")
+      status_update "fetching #{project}"
       memo << client.get(url).sort_by { |_language, lines| lines }.last&.first
     end
     status_update "Counting use of languages in your repos..."
