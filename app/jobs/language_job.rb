@@ -30,7 +30,7 @@ class LanguageJob < ApplicationJob
     status_update "Counting use of languages in your repos..."
     top_languages_count = top_languages_per_repo.each_with_object(Hash.new(0)) { |lg, result| result[lg] += 1 }
     top_language = top_languages_count.max_by { |_lg, count| count }.first
-    status_update "Top language: " + top_language.to_s
+    answer_update(top_language.to_s)
   end
 
   def client_id
@@ -42,13 +42,30 @@ class LanguageJob < ApplicationJob
   end
 
   def status_update(msg)
-    puts "[#{self.job_id}] #{msg}"
+    Rails.logger.info("[#{self.job_id}] #{msg}")
     cable_ready["progress-stream-#{@session_id}"].inner_html(
       selector: '#content',
-      html: "[#{self.job_id}] #{msg}"
+      html: msg
     )
     cable_ready.broadcast
   end
 
-
+  def answer_update(msg)
+    Rails.logger.info("[#{self.job_id}] #{msg}")
+    cable_ready["progress-stream-#{@session_id}"].inner_html(
+      selector: '#content',
+      html: ''
+    )
+    cable_ready.broadcast
+    cable_ready["progress-stream-#{@session_id}"].inner_html(
+      selector: '#answer',
+      html: msg
+    )
+    cable_ready.broadcast
+    cable_ready["progress-stream-#{@session_id}"].inner_html(
+      selector: '#language',
+      html: msg
+    )
+    cable_ready.broadcast
+  end
 end
