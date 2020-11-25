@@ -1,6 +1,6 @@
 class WelcomeController < ApplicationController
   before_action do
-    @token = request.session.id
+    @token = request.session.id.to_s
   end
 
   def index
@@ -8,8 +8,7 @@ class WelcomeController < ApplicationController
   end
 
   def callback
-    @sesh = request.session.id # TODO: remove
-    LanguageJob.perform_later(params[:code], @token.to_s)
+    LanguageJob.perform_later(params[:code], @token)
   end
 
   def client_id
