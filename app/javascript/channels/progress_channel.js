@@ -17,7 +17,7 @@ consumer.subscriptions.create(
       console.log('blurgDisconnect');
     },
 
-    received (data) {
+    received(data) {
       console.log('blurgReceived');
       if (data.cableReady) CableReady.perform(data.operations);
     }
